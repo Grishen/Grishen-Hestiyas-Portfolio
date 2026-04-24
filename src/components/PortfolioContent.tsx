@@ -8,8 +8,9 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { ProjectCard } from './ProjectCard'
 import { MagneticGroup } from './interactive/MagneticGroup'
-import { Tilt3DFrame } from './interactive/Tilt3DFrame'
 import { site } from '../content'
 
 const sectionTransition = { duration: 0.5, ease: [0.22, 0.7, 0.18, 1] as const }
@@ -264,15 +265,11 @@ export function PortfolioContent() {
             <MotionHint />
             <div className="mt-10 flex flex-wrap items-center gap-3">
               <MagneticGroup className="inline-flex" pull={14}>
-                <motion.a
-                  href="#projects"
-                  className="btn-primary"
-                  whileHover={cardHover}
-                  whileTap={{ scale: 0.98 }}
-                  transition={springUi}
-                >
-                  View projects
-                </motion.a>
+                <motion.div whileHover={cardHover} whileTap={{ scale: 0.98 }} transition={springUi}>
+                  <Link to="/projects" className="btn-primary inline-flex">
+                    View projects
+                  </Link>
+                </motion.div>
               </MagneticGroup>
               <MagneticGroup className="inline-flex" pull={11}>
                 <motion.a
@@ -353,6 +350,15 @@ export function PortfolioContent() {
                 text="Name teams, products, and outcomes you want remembered — concrete beats generic."
               />
             </div>
+            <div className="mt-8">
+              <MagneticGroup className="inline-flex" pull={10}>
+                <motion.div whileTap={reduce ? undefined : { scale: 0.98 }} transition={springUi}>
+                  <Link to="/about" className="btn-secondary inline-flex">
+                    Learn more about me
+                  </Link>
+                </motion.div>
+              </MagneticGroup>
+            </div>
           </FadeInView>
         </div>
       </section>
@@ -405,41 +411,7 @@ export function PortfolioContent() {
             />
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {site.projects.map((p, i) => (
-                <Tilt3DFrame key={p.title} className="h-full min-h-[200px]" max={6}>
-                  <motion.article
-                    className="group flex h-full flex-col rounded-2xl border border-white/10 bg-zinc-900/50 p-5 shadow-lg shadow-black/30 backdrop-blur-sm"
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ ...sectionTransition, delay: 0.05 * i }}
-                    whileHover={reduce ? undefined : { boxShadow: '0 0 0 1px rgba(34, 211, 238, 0.2), 0 24px 50px -24px rgba(0,0,0,0.6)' }}
-                  >
-                    <h3 className="m-0 font-display text-lg font-bold text-stone-100">{p.title}</h3>
-                    <p className="text-body mt-2 flex-1 text-sm sm:text-[0.95rem]">{p.description}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {p.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-md border border-white/8 bg-white/5 px-2 py-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-stone-400"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                    {p.href ? (
-                      <a
-                        href={p.href}
-                        className="mt-4 inline-flex w-fit text-sm font-semibold text-cyan-300 underline decoration-cyan-500/40 underline-offset-4 transition hover:text-cyan-200 hover:decoration-cyan-300"
-                      >
-                        Open project →
-                      </a>
-                    ) : (
-                      <p className="text-body mt-4 font-mono text-xs">
-                        Add a URL in <code className={codeStyle}>content.ts</code>
-                      </p>
-                    )}
-                  </motion.article>
-                </Tilt3DFrame>
+                <ProjectCard key={p.title} project={p} index={i} reduce={!!reduce} />
               ))}
             </div>
           </FadeInView>

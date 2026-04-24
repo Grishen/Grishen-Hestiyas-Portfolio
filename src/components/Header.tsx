@@ -1,19 +1,25 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { Link, useLocation } from 'react-router-dom'
 import { site } from '../content'
 import { useActiveSection } from '../hooks/useActiveSection'
 
-const links = [
+const sectionLinks = [
   { href: '#about', label: 'About' },
   { href: '#skills', label: 'Skills' },
   { href: '#projects', label: 'Projects' },
   { href: '#contact', label: 'Contact' },
 ] as const
 
+function sectionHref(hash: string, pathname: string) {
+  return pathname === '/' ? hash : `/${hash}`
+}
+
 export function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const reduce = useReducedMotion()
+  const location = useLocation()
   const active = useActiveSection()
 
   useEffect(() => {
@@ -39,25 +45,49 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex min-h-14 max-w-5xl items-center justify-between gap-3 px-4 sm:px-6">
-        <a
-          href="#top"
+        <Link
+          to="/"
           className="min-w-0 shrink focus-visible:ring-2 focus-visible:ring-cyan-400/50 focus-visible:outline-none"
         >
           <span className="font-display block truncate text-sm font-semibold text-stone-100">
             {site.name}
           </span>
-          <span className="text-xs text-stone-500"></span>
-        </a>
+          <span className="text-xs text-stone-500">Engineer &amp; builder</span>
+        </Link>
 
         <div className="hidden items-center gap-2 md:flex md:gap-3">
           <nav className="flex items-center gap-0.5" aria-label="Page sections">
-            {links.map((l) => {
+            {sectionLinks.map((l) => {
+              if (l.href === '#projects') {
+                const projectsActive =
+                  location.pathname === '/projects' ||
+                  (location.pathname === '/' && active === 'projects')
+                return (
+                  <motion.div
+                    key="projects"
+                    whileHover={reduce ? undefined : { y: -1, scale: 1.03 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 26 }}
+                  >
+                    <Link
+                      to="/projects"
+                      className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500/50 focus-visible:outline-none ${
+                        projectsActive
+                          ? 'bg-cyan-500/20 text-cyan-100'
+                          : 'text-stone-400 hover:bg-white/5 hover:text-stone-100'
+                      }`}
+                      aria-current={projectsActive ? 'page' : undefined}
+                    >
+                      {l.label}
+                    </Link>
+                  </motion.div>
+                )
+              }
               const id = l.href.replace('#', '')
-              const isActive = active === id
+              const isActive = location.pathname === '/' && active === id
               return (
                 <motion.a
                   key={l.href}
-                  href={l.href}
+                  href={sectionHref(l.href, location.pathname)}
                   className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500/50 focus-visible:outline-none ${
                     isActive
                       ? 'bg-cyan-500/20 text-cyan-100'
@@ -71,6 +101,19 @@ export function Header() {
                 </motion.a>
               )
             })}
+            <motion.div whileHover={reduce ? undefined : { y: -1, scale: 1.03 }} transition={{ type: 'spring', stiffness: 500, damping: 26 }}>
+              <Link
+                to="/about"
+                className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500/50 focus-visible:outline-none ${
+                  location.pathname === '/about'
+                    ? 'bg-cyan-500/20 text-cyan-100'
+                    : 'text-stone-400 hover:bg-white/5 hover:text-stone-100'
+                }`}
+                aria-current={location.pathname === '/about' ? 'page' : undefined}
+              >
+                My story
+              </Link>
+            </motion.div>
           </nav>
           <p
             className="hidden max-w-[15rem] border-l border-white/10 pl-3 text-xs leading-snug text-stone-500 lg:block"
@@ -116,13 +159,31 @@ export function Header() {
             transition={{ duration: 0.2 }}
           >
             <div className="flex flex-col gap-1 p-3">
-              {links.map((l) => {
+              {sectionLinks.map((l) => {
+                if (l.href === '#projects') {
+                  const projectsActive =
+                    location.pathname === '/projects' ||
+                    (location.pathname === '/' && active === 'projects')
+                  return (
+                    <Link
+                      key="projects"
+                      to="/projects"
+                      onClick={() => setOpen(false)}
+                      className={`min-h-12 content-center rounded-lg px-3 py-2 text-base ${
+                        projectsActive ? 'bg-cyan-500/15 text-cyan-100' : 'text-stone-200 hover:bg-white/5'
+                      }`}
+                      aria-current={projectsActive ? 'page' : undefined}
+                    >
+                      {l.label}
+                    </Link>
+                  )
+                }
                 const id = l.href.replace('#', '')
-                const isActive = active === id
+                const isActive = location.pathname === '/' && active === id
                 return (
                   <a
                     key={l.href}
-                    href={l.href}
+                    href={sectionHref(l.href, location.pathname)}
                     onClick={() => setOpen(false)}
                     className={`min-h-12 content-center rounded-lg px-3 py-2 text-base ${
                       isActive ? 'bg-cyan-500/15 text-cyan-100' : 'text-stone-200 hover:bg-white/5'
@@ -133,6 +194,16 @@ export function Header() {
                   </a>
                 )
               })}
+              <Link
+                to="/about"
+                onClick={() => setOpen(false)}
+                className={`min-h-12 content-center rounded-lg px-3 py-2 text-base ${
+                  location.pathname === '/about' ? 'bg-cyan-500/15 text-cyan-100' : 'text-stone-200 hover:bg-white/5'
+                }`}
+                aria-current={location.pathname === '/about' ? 'page' : undefined}
+              >
+                My story
+              </Link>
             </div>
           </motion.div>
         )}

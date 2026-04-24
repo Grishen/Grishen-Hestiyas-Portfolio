@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 const SECTION_IDS = ['about', 'skills', 'projects', 'contact'] as const
 
@@ -7,8 +8,11 @@ const SECTION_IDS = ['about', 'skills', 'projects', 'contact'] as const
  */
 export function useActiveSection() {
   const [active, setActive] = useState<string>('')
+  const location = useLocation()
 
   useEffect(() => {
+    if (location.pathname !== '/') return
+
     const setFromScroll = () => {
       if (window.scrollY < 200) {
         setActive('')
@@ -39,7 +43,8 @@ export function useActiveSection() {
       observer.disconnect()
       window.removeEventListener('scroll', setFromScroll)
     }
-  }, [])
+  }, [location.pathname])
 
+  if (location.pathname !== '/') return ''
   return active
 }
