@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
+import { publicUrl } from '../lib/publicUrl'
 import { site } from '../content'
 
 const enter = { duration: 0.45, ease: [0.22, 0.7, 0.18, 1] as const }
@@ -56,7 +57,7 @@ export function AboutMePage() {
         <figure className="m-0">
           {!imageFailed ? (
             <img
-              src={a.imageUrl}
+              src={publicUrl(a.imageUrl)}
               alt={a.imageAlt}
               width={800}
               height={1000}

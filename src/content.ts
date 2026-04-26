@@ -17,7 +17,7 @@ export const site = {
    */
   aboutMe: {
     pageTitle: 'More about me',
-    imageUrl: '/images/profile.jpg',
+    imageUrl: 'images/profile.jpg',
     imageAlt: 'Grishen Hestiyas',
     lead:
       "Here's a fuller picture of who I am beyond the one-line bio — my path, what I care about, and what I'm looking for next.",
