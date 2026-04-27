@@ -12,12 +12,12 @@ export const site = {
     linkedin: 'https://www.linkedin.com/in/grishenh',
   },
   /**
-   * Long-form “about me” page at /about. Add your headshot as public/images/profile.jpg
-   * (or change imageUrl). Recommended: square or 4:5, ~800px+, compressed JPG/WebP.
+   * Long-form “about me” page at /about. Headshot in public/image/ (see imageUrl).
+   * Recommended: square or 4:5, ~800px+, compressed JPG/WebP.
    */
   aboutMe: {
     pageTitle: 'More about me',
-    imageUrl: 'images/profile.jpg',
+    imageUrl: 'image/Headshot.jpg',
     imageAlt: 'Grishen Hestiyas',
     lead:
       "Here's a fuller picture of who I am beyond the one-line bio — my path, what I care about, and what I'm looking for next.",
