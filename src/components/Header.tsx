@@ -58,6 +58,28 @@ export function Header() {
         <div className="hidden items-center gap-2 md:flex md:gap-3">
           <nav className="flex items-center gap-0.5" aria-label="Page sections">
             {sectionLinks.map((l) => {
+              if (l.href === '#about') {
+                const aboutPageActive = location.pathname === '/about'
+                return (
+                  <motion.div
+                    key="about-page"
+                    whileHover={reduce ? undefined : { y: -1, scale: 1.03 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 26 }}
+                  >
+                    <Link
+                      to="/about"
+                      className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500/50 focus-visible:outline-none ${
+                        aboutPageActive
+                          ? 'bg-cyan-500/20 text-cyan-100'
+                          : 'text-stone-400 hover:bg-white/5 hover:text-stone-100'
+                      }`}
+                      aria-current={aboutPageActive ? 'page' : undefined}
+                    >
+                      {l.label}
+                    </Link>
+                  </motion.div>
+                )
+              }
               if (l.href === '#projects') {
                 const projectsActive =
                   location.pathname === '/projects' ||
@@ -101,19 +123,6 @@ export function Header() {
                 </motion.a>
               )
             })}
-            <motion.div whileHover={reduce ? undefined : { y: -1, scale: 1.03 }} transition={{ type: 'spring', stiffness: 500, damping: 26 }}>
-              <Link
-                to="/about"
-                className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500/50 focus-visible:outline-none ${
-                  location.pathname === '/about'
-                    ? 'bg-cyan-500/20 text-cyan-100'
-                    : 'text-stone-400 hover:bg-white/5 hover:text-stone-100'
-                }`}
-                aria-current={location.pathname === '/about' ? 'page' : undefined}
-              >
-                My story
-              </Link>
-            </motion.div>
           </nav>
           <p
             className="hidden max-w-[15rem] border-l border-white/10 pl-3 text-xs leading-snug text-stone-500 lg:block"
@@ -160,6 +169,22 @@ export function Header() {
           >
             <div className="flex flex-col gap-1 p-3">
               {sectionLinks.map((l) => {
+                if (l.href === '#about') {
+                  const aboutPageActive = location.pathname === '/about'
+                  return (
+                    <Link
+                      key="about-page"
+                      to="/about"
+                      onClick={() => setOpen(false)}
+                      className={`min-h-12 content-center rounded-lg px-3 py-2 text-base ${
+                        aboutPageActive ? 'bg-cyan-500/15 text-cyan-100' : 'text-stone-200 hover:bg-white/5'
+                      }`}
+                      aria-current={aboutPageActive ? 'page' : undefined}
+                    >
+                      {l.label}
+                    </Link>
+                  )
+                }
                 if (l.href === '#projects') {
                   const projectsActive =
                     location.pathname === '/projects' ||
@@ -194,16 +219,6 @@ export function Header() {
                   </a>
                 )
               })}
-              <Link
-                to="/about"
-                onClick={() => setOpen(false)}
-                className={`min-h-12 content-center rounded-lg px-3 py-2 text-base ${
-                  location.pathname === '/about' ? 'bg-cyan-500/15 text-cyan-100' : 'text-stone-200 hover:bg-white/5'
-                }`}
-                aria-current={location.pathname === '/about' ? 'page' : undefined}
-              >
-                My story
-              </Link>
             </div>
           </motion.div>
         )}
