@@ -412,7 +412,7 @@ export function PortfolioContent() {
             />
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {site.projects.map((p, i) => (
-                <ProjectCard key={p.title} project={p} index={i} reduce={!!reduce} />
+                <ProjectCard key={p.title} project={p} index={i} reduce={!!reduce} truncateDescription />
               ))}
             </div>
           </FadeInView>

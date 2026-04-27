@@ -11,9 +11,11 @@ type Props = {
   project: ProjectEntry
   index: number
   reduce: boolean
+  /** Limit description to a few lines with an ellipsis (e.g. home page preview). */
+  truncateDescription?: boolean
 }
 
-export function ProjectCard({ project: p, index: i, reduce }: Props) {
+export function ProjectCard({ project: p, index: i, reduce, truncateDescription }: Props) {
   return (
     <Tilt3DFrame className="h-full min-h-[200px]" max={6}>
       <motion.article
@@ -25,7 +27,15 @@ export function ProjectCard({ project: p, index: i, reduce }: Props) {
         whileHover={reduce ? undefined : { boxShadow: '0 0 0 1px rgba(34, 211, 238, 0.2), 0 24px 50px -24px rgba(0,0,0,0.6)' }}
       >
         <h3 className="m-0 font-display text-lg font-bold text-stone-100">{p.title}</h3>
-        <p className="text-body mt-2 flex-1 text-sm sm:text-[0.95rem]">{p.description}</p>
+        <p
+          className={
+            truncateDescription
+              ? 'text-body mt-2 line-clamp-4 min-h-0 flex-1 text-sm sm:line-clamp-5 sm:text-[0.95rem]'
+              : 'text-body mt-2 flex-1 text-sm sm:text-[0.95rem]'
+          }
+        >
+          {p.description}
+        </p>
         <div className="mt-4 flex flex-wrap gap-2">
           {p.tags.map((t) => (
             <span

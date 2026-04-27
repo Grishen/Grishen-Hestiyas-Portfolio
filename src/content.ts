@@ -1,6 +1,19 @@
 /**
  * Update this file to personalize the portfolio.
  */
+/** One project: home page shows `description` (truncated); /projects can show `extended` and `imageUrl`. */
+export type ProjectEntry = {
+  title: string
+  description: string
+  tags: readonly string[]
+  href: string | null
+  /** Path under public/, e.g. images/projects/thing.png (no "public/" prefix). */
+  imageUrl?: string
+  imageAlt?: string
+  /** Extra paragraphs shown only on the full projects page. */
+  extended?: readonly string[]
+}
+
 export const site = {
   name: 'Grishen Hestiyas',
   role: 'AI Software Engineer',
@@ -37,13 +50,19 @@ export const site = {
     'Performance & architecture',
     'Databases & data modeling',
   ],
+  /**
+   * Home: “Selected work” cards (description truncated). /projects: full-width showcases with optional image + extended.
+   */
   projects: [
     {
-      title: 'Featured project one',
+      title: 'Converse IQ',
       description:
-        'Describe a project you are proud of: the problem, your role, and the outcome. Link to a repo or demo when ready.',
+        'A multi-tenant helpdesk platform where customer chats automatically become support tickets with full transcripts and AI-driven summaries, field extraction, and routing signals. The stack pairs a FastAPI and PostgreSQL backend (Alembic migrations, tenant-isolated data) with a Vite + React admin and agent UI for managing companies, teams, SLAs, and configuration. I use it to show end-to-end product thinking: real-time support workflows, responsible multi-tenancy, and an LLM layer behind clear interfaces and tests rather than ad hoc API calls.',
       tags: ['TypeScript', 'API', 'UX'],
       href: null as string | null,
+      extended: [
+        'On this page you can go deeper: architecture, tradeoffs, and what you would ship next. Add a hero image with imageUrl (file under public/images/projects/) to sit next to the text.',
+      ],
     },
     {
       title: 'Product or platform work',
@@ -51,6 +70,7 @@ export const site = {
         'A concise summary of scope and impact. Metrics (latency, users, error rate) read very well here.',
       tags: ['System design', 'DevOps', 'CI/CD'],
       href: null,
+      extended: ['Optional extra paragraph for the all-projects view only.'],
     },
     {
       title: 'Open source or experiment',
@@ -59,11 +79,12 @@ export const site = {
       tags: ['Open source', 'Tooling'],
       href: null,
     },
-  ],
+  ] satisfies ReadonlyArray<ProjectEntry>,
   /** Copy for the dedicated /projects page */
   projectsPage: {
     title: 'All projects',
-    lead: 'Each card comes from the projects list in this file — add links, expand descriptions, and ship.',
+    lead:
+      'Each project below is one item in content.ts — add optional images, more copy in extended, and public links when you are ready.',
   },
   /**
    * /resume — add your PDF under public/ (e.g. public/resume/Grishen-Hestiyas-Resume.pdf)
@@ -77,5 +98,3 @@ export const site = {
       'Below, the résumé text is read from your PDF and styled to match this site. Use Download PDF for the original file for job applications.',
   },
 } as const
-
-export type ProjectEntry = (typeof site.projects)[number]
