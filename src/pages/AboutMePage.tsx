@@ -81,7 +81,7 @@ export function AboutMePage() {
               <p className="m-0 max-w-xs text-sm text-stone-500">
                 Add{' '}
                 <code className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-cyan-200/80">
-                  public/image/Headshot.jpg
+                  public/images/Headshot.jpg
                 </code>{' '}
                 and set <code className="font-mono text-xs text-cyan-200/80">imageUrl</code> in{' '}
                 <code className="font-mono text-xs text-cyan-200/80">content.ts</code>.

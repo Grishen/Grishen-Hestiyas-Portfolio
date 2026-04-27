@@ -12,12 +12,12 @@ export const site = {
     linkedin: 'https://www.linkedin.com/in/grishenh',
   },
   /**
-   * Long-form “about me” page at /about. Headshot in public/image/ (see imageUrl).
-   * Recommended: square or 4:5, ~800px+, compressed JPG/WebP.
+   * Long-form “about me” at /about. Put the file in public/ (e.g. public/images/Headshot.jpg)
+   * and set imageUrl to the URL path *without* a "public/" prefix (see Vite public dir docs).
    */
   aboutMe: {
     pageTitle: 'More about me',
-    imageUrl: 'image/Headshot.jpg',
+    imageUrl: 'public/images/Headshot.jpg',
     imageAlt: 'Grishen Hestiyas',
     lead:
       "Here's a fuller picture of who I am beyond the one-line bio — my path, what I care about, and what I'm looking for next.",
