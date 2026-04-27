@@ -4,6 +4,8 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { publicUrl } from '../lib/publicUrl'
 import { site } from '../content'
 
+const resumePdf = publicUrl(site.resume.pdfPath)
+
 const enter = { duration: 0.45, ease: [0.22, 0.7, 0.18, 1] as const }
 const springUi = { type: 'spring' as const, stiffness: 360, damping: 28 }
 
@@ -45,7 +47,6 @@ export function AboutMePage() {
         <h1 className="font-display mt-0 text-4xl font-bold tracking-tight text-stone-100 sm:text-5xl">
           {a.pageTitle}
         </h1>
-        <p className="prose-calm mt-4 text-balance">{a.lead}</p>
       </motion.div>
 
       <motion.div
@@ -121,6 +122,20 @@ export function AboutMePage() {
           <Link to="/#contact" className="btn-primary inline-flex">
             Get in touch
           </Link>
+        </motion.div>
+        <motion.div whileTap={reduce ? undefined : { scale: 0.98 }} transition={springUi}>
+          <Link to="/resume" className="btn-secondary inline-flex">
+            View resume
+          </Link>
+        </motion.div>
+        <motion.div whileTap={reduce ? undefined : { scale: 0.98 }} transition={springUi}>
+          <a
+            href={resumePdf}
+            download={site.resume.downloadFileName}
+            className="btn-secondary inline-flex"
+          >
+            Download PDF
+          </a>
         </motion.div>
         <motion.div whileTap={reduce ? undefined : { scale: 0.98 }} transition={springUi}>
           <a href={site.social.linkedin} className="btn-secondary inline-flex" target="_blank" rel="noreferrer">

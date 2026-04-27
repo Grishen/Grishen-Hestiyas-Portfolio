@@ -7,6 +7,7 @@ import { PortfolioContent } from './components/PortfolioContent'
 import { ScrollProgress } from './components/ScrollProgress'
 import { AboutMePage } from './pages/AboutMePage'
 import { ProjectsPage } from './pages/ProjectsPage'
+import { ResumePage } from './pages/ResumePage'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -31,6 +32,7 @@ function App() {
           <Route path="/" element={<PortfolioContent />} />
           <Route path="/about" element={<AboutMePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/resume" element={<ResumePage />} />
         </Routes>
       </div>
     </ViewportAtmosphereProvider>

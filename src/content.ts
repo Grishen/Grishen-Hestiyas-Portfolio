@@ -19,8 +19,6 @@ export const site = {
     pageTitle: 'More about me',
     imageUrl: 'public/images/Headshot.jpg',
     imageAlt: 'Grishen Hestiyas',
-    lead:
-      "Here's a fuller picture of who I am beyond the one-line bio — my path, what I care about, and what I'm looking for next.",
     paragraphs: [
       "I'm an AI software engineer with a computer science background. I like problems that sit at the intersection of good UX, solid systems, and models that actually help people — not demos that fall apart in production.",
       'I work best in teams that value clear ownership, direct feedback, and room to improve things incrementally. I care about code review, tests where they matter, and documentation that the next person can use.',
@@ -66,6 +64,17 @@ export const site = {
   projectsPage: {
     title: 'All projects',
     lead: 'Each card comes from the projects list in this file — add links, expand descriptions, and ship.',
+  },
+  /**
+   * /resume — add your PDF under public/ (e.g. public/resume/Grishen-Hestiyas-Resume.pdf)
+   * and set pdfPath to the URL path without a leading "public/" segment.
+   */
+  resume: {
+    pageTitle: 'Resume',
+    pdfPath: 'resume/Grishen_Hestiyas_Resume_Original_AIEngineer.pdf',
+    downloadFileName: 'Grishen_Hestiyas_Resume_Original_AIEngineer.pdf',
+    blurb:
+      'Below, the résumé text is read from your PDF and styled to match this site. Use Download PDF for the original file for job applications.',
   },
 } as const
 

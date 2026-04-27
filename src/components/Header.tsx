@@ -124,11 +124,24 @@ export function Header() {
               )
             })}
           </nav>
-          <p
-            className="hidden max-w-[15rem] border-l border-white/10 pl-3 text-xs leading-snug text-stone-500 lg:block"
-            aria-hidden
-          >
-          </p>
+          <div className="flex items-center gap-2 border-l border-white/10 pl-3">
+            <motion.div
+              whileHover={reduce ? undefined : { y: -1, scale: 1.03 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 26 }}
+            >
+              <Link
+                to="/resume"
+                className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500/50 focus-visible:outline-none ${
+                  location.pathname === '/resume'
+                    ? 'bg-cyan-500/20 text-cyan-100'
+                    : 'text-stone-400 hover:bg-white/5 hover:text-stone-100'
+                }`}
+                aria-current={location.pathname === '/resume' ? 'page' : undefined}
+              >
+                Resume
+              </Link>
+            </motion.div>
+          </div>
         </div>
 
         <button
@@ -219,6 +232,16 @@ export function Header() {
                   </a>
                 )
               })}
+              <Link
+                to="/resume"
+                onClick={() => setOpen(false)}
+                className={`min-h-12 content-center rounded-lg px-3 py-2 text-base ${
+                  location.pathname === '/resume' ? 'bg-cyan-500/15 text-cyan-100' : 'text-stone-200 hover:bg-white/5'
+                }`}
+                aria-current={location.pathname === '/resume' ? 'page' : undefined}
+              >
+                Resume
+              </Link>
             </div>
           </motion.div>
         )}

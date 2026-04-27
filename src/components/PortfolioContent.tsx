@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
 import { ProjectCard } from './ProjectCard'
 import { MagneticGroup } from './interactive/MagneticGroup'
 import { site } from '../content'
+import { publicUrl } from '../lib/publicUrl'
 
 const sectionTransition = { duration: 0.5, ease: [0.22, 0.7, 0.18, 1] as const }
 const springUi = { type: 'spring' as const, stiffness: 360, damping: 28 }
@@ -338,18 +339,18 @@ export function PortfolioContent() {
               num="01"
               eyebrow="About"
               title="Who I am"
-              subtitle="A short narrative — swap it for your own story in content and keep the structure for scanability."
+              /*subtitle="A short narrative — swap it for your own story in content and keep the structure for scanability."*/
             />
             <RevealWords
               className="prose-calm text-balance"
               text={`I am ${site.name}, an AI Software Engineer with a ${site.education}. I care about clear boundaries between services, code that the next person can own, and shipping work that still makes sense under load and over time.`}
             />
-            <div className="mt-5">
+            {/*<div className="mt-5">
               <RevealWords
                 className="prose-calm text-balance"
                 text="Name teams, products, and outcomes you want remembered — concrete beats generic."
               />
-            </div>
+            </div>*/}
             <div className="mt-8">
               <MagneticGroup className="inline-flex" pull={10}>
                 <motion.div whileTap={reduce ? undefined : { scale: 0.98 }} transition={springUi}>
@@ -442,6 +443,23 @@ export function PortfolioContent() {
               {site.email}
             </motion.a>
             <div className="mt-8 flex flex-wrap gap-3">
+              <MagneticGroup className="inline-flex" pull={10}>
+                <motion.div whileTap={{ scale: 0.98 }}>
+                  <Link to="/resume" className="btn-primary inline-flex">
+                    View resume
+                  </Link>
+                </motion.div>
+              </MagneticGroup>
+              <MagneticGroup className="inline-flex" pull={10}>
+                <motion.a
+                  href={publicUrl(site.resume.pdfPath)}
+                  download={site.resume.downloadFileName}
+                  className="btn-secondary inline-flex"
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Download PDF
+                </motion.a>
+              </MagneticGroup>
               <MagneticGroup className="inline-flex" pull={10}>
                 <motion.a
                   href={site.social.github}
