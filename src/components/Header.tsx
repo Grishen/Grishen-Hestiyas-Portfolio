@@ -80,6 +80,30 @@ export function Header() {
                   </motion.div>
                 )
               }
+              if (l.href === '#skills') {
+                const skillsRouteActive =
+                  location.pathname === '/skills' ||
+                  (location.pathname === '/' && active === 'skills')
+                return (
+                  <motion.div
+                    key="skills-page"
+                    whileHover={reduce ? undefined : { y: -1, scale: 1.03 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 26 }}
+                  >
+                    <Link
+                      to="/skills"
+                      className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500/50 focus-visible:outline-none ${
+                        skillsRouteActive
+                          ? 'bg-cyan-500/20 text-cyan-100'
+                          : 'text-stone-400 hover:bg-white/5 hover:text-stone-100'
+                      }`}
+                      aria-current={skillsRouteActive ? 'page' : undefined}
+                    >
+                      {l.label}
+                    </Link>
+                  </motion.div>
+                )
+              }
               if (l.href === '#projects') {
                 const projectsActive =
                   location.pathname === '/projects' ||
@@ -193,6 +217,24 @@ export function Header() {
                         aboutPageActive ? 'bg-cyan-500/15 text-cyan-100' : 'text-stone-200 hover:bg-white/5'
                       }`}
                       aria-current={aboutPageActive ? 'page' : undefined}
+                    >
+                      {l.label}
+                    </Link>
+                  )
+                }
+                if (l.href === '#skills') {
+                  const skillsRouteActive =
+                    location.pathname === '/skills' ||
+                    (location.pathname === '/' && active === 'skills')
+                  return (
+                    <Link
+                      key="skills-page"
+                      to="/skills"
+                      onClick={() => setOpen(false)}
+                      className={`min-h-12 content-center rounded-lg px-3 py-2 text-base ${
+                        skillsRouteActive ? 'bg-cyan-500/15 text-cyan-100' : 'text-stone-200 hover:bg-white/5'
+                      }`}
+                      aria-current={skillsRouteActive ? 'page' : undefined}
                     >
                       {l.label}
                     </Link>

@@ -396,6 +396,14 @@ export function PortfolioContent() {
                 </li>
               ))}
             </ul>
+            <p className="m-0 mt-8">
+              <Link
+                to="/skills"
+                className="text-sm font-medium text-cyan-400/90 underline decoration-cyan-500/35 underline-offset-4 transition hover:text-cyan-300 hover:decoration-cyan-400/60"
+              >
+                Full skills breakdown →
+              </Link>
+            </p>
           </FadeInView>
         </div>
       </section>

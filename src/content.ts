@@ -42,6 +42,7 @@ export const site = {
       { title: 'How I work', text: 'I communicate early, time-box exploration, and prefer shipping a small right thing over a large vague one.' },
     ],
   },
+  /** Short labels shown on the home page skills strip — keep scannable; detail lives on /skills. */
   skills: [
     'TypeScript & JavaScript',
     'React & modern web',
@@ -50,6 +51,46 @@ export const site = {
     'Performance & architecture',
     'Databases & data modeling',
   ],
+  /**
+   * Full skills page at /skills — grouped categories and chip lists; edit anytime.
+   */
+  skillsPage: {
+    pageTitle: 'Skills & tooling',
+    lead:
+      'How I categorize my stack: things I ship with often, then adjacent tools and practices from product work — including AI-enabled systems and tenant-safe backends.',
+    categories: [
+      {
+        title: 'Languages & runtimes',
+        blurb: 'Comfortable shipping and reviewing production code.',
+        items: ['TypeScript', 'JavaScript (ES modules)', 'Python 3'],
+      },
+      {
+        title: 'Web & UX',
+        blurb: 'Interfaces that stay maintainable as the product grows.',
+        items: ['React', 'Vite', 'Tailwind CSS', 'Responsive & accessible markup', 'Client-side routing & state patterns'],
+      },
+      {
+        title: 'Backend, APIs & data',
+        blurb: 'Services, persistence, and clear contracts.',
+        items: ['FastAPI', 'REST APIs & JSON', 'PostgreSQL', 'Alembic / schema migrations', 'Multi-tenant data modeling', 'Auth patterns & guarded endpoints'],
+      },
+      {
+        title: 'AI / ML in products',
+        blurb: 'LLMs as part of the system, not a black box on the side.',
+        items: ['LLM integration & provider boundaries', 'Prompting & structured outputs', 'Transcript / ticket summarization patterns', 'Testing and guarding model-facing code'],
+      },
+      {
+        title: 'Quality & delivery',
+        blurb: 'How code stays understandable for the team.',
+        items: ['Unit & integration tests', 'CI/CD pipelines', 'Code review habits', 'Observability basics (logging, errors)', 'Documentation for the next engineer'],
+      },
+      {
+        title: 'Architecture & platform',
+        blurb: 'End-to-end thinking from schema to deployment.',
+        items: ['Monorepo-friendly structure', 'Service boundaries', 'Performance awareness', 'Docker basics', 'Git workflows'],
+      },
+    ],
+  },
   /**
    * Home: “Selected work” cards (description truncated). /projects: full-width showcases with optional image + extended.
    */
