@@ -11,10 +11,28 @@ import { SkillsPage } from './pages/SkillsPage'
 import { ResumePage } from './pages/ResumePage'
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
+
   useEffect(() => {
+    if (hash) {
+      const id = hash.replace(/^#/, '')
+      const reduce =
+        typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+      const run = () => {
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
+        } else {
+          window.scrollTo(0, 0)
+        }
+      }
+      // Let the home route paint (e.g. contact section) before scrolling
+      const t = window.setTimeout(run, 64)
+      return () => window.clearTimeout(t)
+    }
     window.scrollTo(0, 0)
-  }, [pathname])
+  }, [pathname, hash])
+
   return null
 }
 

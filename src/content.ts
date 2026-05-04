@@ -96,6 +96,21 @@ export const site = {
    */
   projects: [
     {
+      title: 'FRIDAY (Personal OS)',
+      description:
+        'Full-stack “personal OS” on FastAPI and Postgres: streaming LLMs (WebSockets and SSE), multi-tenant auth, governed local automation with workspace allow-lists (not raw shell), RAG over chunks with pgvector, proactive workflows, plus voice—Porcupine wake word, Whisper-style STT, WebRTC to OpenAI’s Realtime API—Redis/Celery, and OTEL. An ambitious prototype slice that still reads like a real platform: clear tenancy, contracts, and observability rather than a chat demo.',
+      tags: ['Next.js', 'FastAPI', 'PostgreSQL', 'Voice / realtime', 'LLM & RAG', 'Multi-tenant'],
+      href: null as string | null,
+      extended: [
+        'FRIDAY is an end-to-end multi-tenant “personal OS” assistant stack I architected across a TypeScript (Next.js) client and Python (FastAPI) API backed by PostgreSQL, Redis, and Celery, with structured auth/session boundaries suitable for SaaS-style tenancy. At the conversational layer it combines classical intent/planner/orchestration with streaming LLM responses (WebSockets plus SSE for REST), optional OpenAI-compatible providers, governed sandboxed host automation (local tooling with workspace + allow-lists rather than unrestricted shell access), approvals/workflows, RAG over embedded document chunks (pgvector), and proactive notifications—so the assistant isn’t just chat, it’s wired into memory, tools, and policy.',
+        'For voice I integrated server-side speech handling (Whisper-style transcribe + WebSocket audio paths), Picovoice Porcupine for true wake-word, and bidirectional realtime speech via WebRTC bridged to OpenAI’s Realtime API (/realtime/calls), while keeping orchestration-grade features clearly separated until tool-calling can be mediated server-side—showing restraint on scope and explicit tradeoffs.',
+        'Observability (OpenTelemetry/OTLP toward collectors), hygiene around coverage, linting, and API contracts (OpenAPI), and pragmatic documentation round out something that reads less like “a demo toy” and more like a credibly structured platform slice employers can map to backend, infra, realtime, ML ops, and product engineering. Positioning: a prototype / platform slice—not every path is production-hardened, but scope and tradeoffs are intentional and documented.',
+        'Case-study lens — tenancy & policy: SaaS-shaped boundaries for sessions and data; host automation behind allow-lists and approvals rather than opaque shell access.',
+        'Case-study lens — voice & realtime: wake word → streaming STT → orchestration → TTS / Realtime bridging, with a deliberate split until server-mediated tool calls are safe at orchestration scale.',
+        'Case-study lens — quality: OpenAPI-first API surface, tests and linting as guardrails, and OTEL traces/metrics aimed at collectors so the stack is debuggable as complexity grows.',
+      ],
+    },
+    {
       title: 'Converse IQ',
       description:
         'A multi-tenant helpdesk platform where customer chats automatically become support tickets with full transcripts and AI-driven summaries, field extraction, and routing signals. The stack pairs a FastAPI and PostgreSQL backend (Alembic migrations, tenant-isolated data) with a Vite + React admin and agent UI for managing companies, teams, SLAs, and configuration. I use it to show end-to-end product thinking: real-time support workflows, responsible multi-tenancy, and an LLM layer behind clear interfaces and tests rather than ad hoc API calls.',

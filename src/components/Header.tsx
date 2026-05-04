@@ -11,10 +11,6 @@ const sectionLinks = [
   { href: '#contact', label: 'Contact' },
 ] as const
 
-function sectionHref(hash: string, pathname: string) {
-  return pathname === '/' ? hash : `/${hash}`
-}
-
 export function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -128,24 +124,29 @@ export function Header() {
                   </motion.div>
                 )
               }
-              const id = l.href.replace('#', '')
-              const isActive = location.pathname === '/' && active === id
-              return (
-                <motion.a
-                  key={l.href}
-                  href={sectionHref(l.href, location.pathname)}
-                  className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500/50 focus-visible:outline-none ${
-                    isActive
-                      ? 'bg-cyan-500/20 text-cyan-100'
-                      : 'text-stone-400 hover:bg-white/5 hover:text-stone-100'
-                  }`}
-                  whileHover={reduce ? undefined : { y: -1, scale: 1.03 }}
-                  transition={{ type: 'spring', stiffness: 500, damping: 26 }}
-                  aria-current={isActive ? true : undefined}
-                >
-                  {l.label}
-                </motion.a>
-              )
+              if (l.href === '#contact') {
+                const contactActive = location.pathname === '/' && active === 'contact'
+                return (
+                  <motion.div
+                    key="contact-section"
+                    whileHover={reduce ? undefined : { y: -1, scale: 1.03 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 26 }}
+                  >
+                    <Link
+                      to={{ pathname: '/', hash: 'contact' }}
+                      className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-cyan-500/50 focus-visible:outline-none ${
+                        contactActive
+                          ? 'bg-cyan-500/20 text-cyan-100'
+                          : 'text-stone-400 hover:bg-white/5 hover:text-stone-100'
+                      }`}
+                      aria-current={contactActive ? 'true' : undefined}
+                    >
+                      {l.label}
+                    </Link>
+                  </motion.div>
+                )
+              }
+              return null
             })}
           </nav>
           <div className="flex items-center gap-2 border-l border-white/10 pl-3">
@@ -258,21 +259,23 @@ export function Header() {
                     </Link>
                   )
                 }
-                const id = l.href.replace('#', '')
-                const isActive = location.pathname === '/' && active === id
-                return (
-                  <a
-                    key={l.href}
-                    href={sectionHref(l.href, location.pathname)}
-                    onClick={() => setOpen(false)}
-                    className={`min-h-12 content-center rounded-lg px-3 py-2 text-base ${
-                      isActive ? 'bg-cyan-500/15 text-cyan-100' : 'text-stone-200 hover:bg-white/5'
-                    }`}
-                    aria-current={isActive ? true : undefined}
-                  >
-                    {l.label}
-                  </a>
-                )
+                if (l.href === '#contact') {
+                  const contactActive = location.pathname === '/' && active === 'contact'
+                  return (
+                    <Link
+                      key="contact-section"
+                      to={{ pathname: '/', hash: 'contact' }}
+                      onClick={() => setOpen(false)}
+                      className={`min-h-12 content-center rounded-lg px-3 py-2 text-base ${
+                        contactActive ? 'bg-cyan-500/15 text-cyan-100' : 'text-stone-200 hover:bg-white/5'
+                      }`}
+                      aria-current={contactActive ? 'true' : undefined}
+                    >
+                      {l.label}
+                    </Link>
+                  )
+                }
+                return null
               })}
               <Link
                 to="/resume"
